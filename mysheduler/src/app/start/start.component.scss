@@ -1,0 +1,110 @@
+.body{
+  background-color: white;
+}
+a{
+  text-decoration: none;
+}
+
+.container{
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .gauche{
+    // background-color: #051e34;
+    h1{
+      width: 500px;
+    }
+    h6{
+      width: 350px;
+      color: #030f19aa;
+    }
+    .boutons{
+      .btn{
+        color: white;
+        background: linear-gradient( #051e34 ,#051e34) ;
+        margin-right: 10px;
+      }
+
+    }
+
+    hr{
+      width: 60%;
+    }
+
+  }
+  .droite{
+    text-align: center;
+    // background-color: #051e34;
+    .image{
+     img{
+      width: 300px;
+      height: 300px;
+      border-radius: 200px;
+      border: #051e342a 1px solid;
+     }
+    }
+    .detail{
+      width: 400px;
+      p{
+        color: #030f1998;
+      }
+    }
+
+  }
+
+  .plus{
+    // margin-top: 20px;
+    font-size: 18px;
+    color: #051e34 !important ;
+    .un{
+      font-family: 'Rubik Wet Paint', cursive;
+      font-weight: bold;
+      font-size: 150%;
+    }
+    .deux{
+      font-family: 'Rubik Wet Paint', cursive;
+      font-weight: bold;
+      font-size: 100%;
+    }
+  }
+}
+
+
+
+@media screen and (max-width: 1000px) {
+
+  .container{
+    text-align: center;
+    .gauche{
+      h1{
+        width: 100%;
+      }
+      h6{
+        width: 100%;
+      }
+
+      hr{
+        width: 90%;
+      }
+
+    }
+    .droite{
+      width: 100%;
+      .image{
+        width: 100%;
+        justify-content: center;
+        display: flex;
+       img{
+        width: 250px;
+        height: 250px;
+       }
+      }
+      .detail{
+        width: 100%;
+      }
+
+    }
+  }
+
+}

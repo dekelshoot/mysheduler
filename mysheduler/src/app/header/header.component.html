@@ -1,0 +1,13 @@
+
+  <nav class="navbar navbar-dark  bg-purple">
+      <div class="container-fluid">
+        <span class="navbar-brand brand mb-0 h1"><a (click)="route('start')" ><span class="un">MY</span><span class="deux">sheduler</span></a></span>
+        <form class="d-flex">
+           <button *ngIf="!isAuth" class="btn  start" type="submit" (click)="route('choice')">Commencer</button>
+           <button *ngIf="!isAuth" class="btn  start" type="submit" (click)="route('auth/signin')">Sign-in</button>
+           <button *ngIf="isAuth"  class="btn  start" type="submit" (click)="route('dashboard')">Dashboard</button>
+           <button *ngIf="isAuth"  class="btn  start" type="submit" (click)="signOut()">Sign-Out</button>
+        </form>
+      </div>
+  </nav>
+

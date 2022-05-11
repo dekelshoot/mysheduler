@@ -1,0 +1,86 @@
+.bg-purple{
+  background: linear-gradient( #051e34 ,#051e34) !important;
+  .start {
+      color: white;
+      background-color: #1c3f5d ;
+
+  }
+}
+.brand{
+  // font-family: 'Rubik Wet Paint', cursive;
+   font-family: 'Rubik Wet Paint', cursive;
+    font-weight: bold;
+    color: whitesmoke;
+
+  .un{
+    font-size: 200%;
+  }
+  .deux{
+    font-size: 150%;
+  }
+}
+
+a{
+  text-decoration: none;
+}
+
+
+.conatain{
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .gauche{
+    // background-color: #051e34;
+    h1{
+      width: 500px;
+    }
+    h6{
+      width: 350px;
+      color: #030f19aa;
+    }
+    .boutons{
+      .btn{
+        color: white;
+        background: linear-gradient( #051e34 ,#051e34) ;
+        margin-right: 10px;
+      }
+
+    }
+
+    hr{
+      width: 60%;
+    }
+
+  }
+  .droite{
+    background-color: #051e34;
+    border: 1px solid #1c3f5d53;
+    border-radius: 20px;
+    text-align: center;
+    padding: 30px;
+    width: 400px;
+
+  }
+
+
+}
+.active{
+  background: linear-gradient( #051e34 ,#051e34) ;
+}
+.boutons{
+  .btn{
+    color: white;
+    background-color: #37546e ;
+    margin-right: 10px;
+  }
+
+}
+#submit{
+  color: #051e34;
+  background-color: white;
+}
+#back{
+  color: white;
+  background-color: #051e34;
+}

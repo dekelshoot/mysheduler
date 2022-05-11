@@ -1,0 +1,47 @@
+
+.bg-purple{
+  background: linear-gradient( #051e34 ,#051e34) !important;
+  .start {
+      color: white;
+      background-color: #1c3f5d ;
+
+  }
+}
+
+.start{
+  margin-right: 10px;
+}
+.brand{
+  // font-family: 'Rubik Wet Paint', cursive;
+   font-family: 'Rubik Wet Paint', cursive;
+    font-weight: bold;
+    color: whitesmoke;
+
+  .un{
+    font-size: 250%;
+  }
+  .deux{
+    font-size: 150%;
+  }
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .start{
+    font-size: 10px;
+  }
+
+.brand{
+
+  .un{
+    font-size: 200%;
+  }
+  .deux{
+    font-size: 100%;
+  }
+}
+
+
+
+}

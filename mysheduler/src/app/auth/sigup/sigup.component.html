@@ -1,0 +1,122 @@
+<nav class="navbar navbar-dark fixed-top  bg-purple">
+  <div class="container-fluid">
+    <a (click)="route('start')"><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">sheduler</span></span></a>
+  </div>
+</nav>
+<div class="body">
+<br><br> <br>
+    <br><br>
+    <div class="container">
+    <div class="left">
+      <img src="../../../assets/7.png" alt="">
+    </div>
+    <div class="right ">
+        <h3><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">sheduler</span></span></h3>
+        <hr>
+        <h3>Crée un compte</h3>
+        <br>
+
+        <form >
+         <div class="cont">
+            <div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control"  placeholder="nom">
+                <label for="floatingInput">nom</label>
+              </div>
+              <div class="form-floating">
+                <input type="text" class="form-control"  placeholder="prenom">
+                <label for="floatingInput">prenom</label>
+              </div>
+              <p></p>
+              <div class="col-md">
+                <div class="form-floating">
+                  <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                    <option selected>professeur</option>
+                    <option value="1">docteur</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                  <label for="floatingSelectGrid">Grade</label>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+              </div>
+              <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+              </div>
+              <div>
+                <br>
+                <button type="button" id="modal" class="btn btn1"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" >sélectionnez vos UE</button>
+                <span> 0/8</span>
+              </div>
+            </div>
+         </div>
+         <br>
+          <button id="submit" type="submit" class="btn ">Crée</button>
+        </form>
+        <br>
+        <p>Vous avez déja un compte ? cliquez <a (click)="route('auth/sigin')" class="text-primary">ici</a></p>
+      </div>
+
+    </div>
+
+</div>
+
+
+ <!-- Modal -->
+ <div class="modal  fade"  id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog   modal-dialog-centered">
+    <div class="modal-content cont-modal" id="cont-modal">
+      <div class="modal-body">
+         <div class="head">
+              <h5 class="modal-title" id="exampleModalLabel">UE</h5>
+              <button  type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <br>
+          <div class="select">
+            <div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">INF3036</label>
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">INF3046</label>
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">INF3056</label>
+              </div>
+            </div>
+            <div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">INF3236</label>
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">INF3246</label>
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">INF3256</label>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="foot">
+
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Save changes</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,66 @@
+<div class="body">
+  <app-header  class="fixed-top"></app-header>
+
+<br><br><br><br><br>
+
+<div class="container">
+
+  <div class="gauche">
+    <h1>L'emploie de temps en ligne , maintenant disponible pour tous </h1>
+    <h6>Nous avons adapté l'emploie de temps de l'université, afin de le rendre disponible pour u  et  tous.</h6>
+    <br>
+    <div class="boutons">
+      <button (click)="route('choice')" class="btn ">Commencer</button>
+      <button (click)="route('auth/signin')" class="btn" >Sigin</button>
+      <button (click)="route('about')" class="btn" >About</button>
+    </div>
+    <hr>
+  </div>
+
+  <div class="droite">
+    <div *ngIf="display==1">
+      <div class="image">
+        <button class="right btn" (click)="changeDisplay('previor')"><i class="bi bi-caret-left-fill"></i></button>
+        <img src="../../assets/4.webp" alt="">
+        <button class="right btn" (click)="changeDisplay('next')"><i class="bi bi-caret-right-fill"></i></button>
+      </div>
+      <div class="detail">
+        <h5>Acceder a votre programme</h5>
+        <p> Cliquez sur <button class="btn " (click)="route('choice')" style="background-color:#051e34 ; color: white;">Commencer</button> pour acceder a l'emploie de temps la plus organisé</p>
+      </div>
+    </div>
+
+    <div *ngIf="display==2">
+      <div class="image">
+        <button class="right btn" (click)="changeDisplay('previor')"><i class="bi bi-caret-left-fill"></i></button>
+        <img src="../../assets/5.jpg" alt="">
+        <button class="right btn" (click)="changeDisplay('next')"><i class="bi bi-caret-right-fill"></i></button>
+      </div>
+      <div class="detail">
+        <h5>Programmer des meeting</h5>
+        <p> Programmer une  <strong style="color: black !important;">Rencontre</strong> entre vous des d'autres personnes</p>
+      </div>
+    </div>
+
+    <div *ngIf="display==3">
+      <div class="image">
+        <button class="right btn" (click)="changeDisplay('previor')"><i class="bi bi-caret-left-fill"></i></button>
+        <img src="../../assets/3.jpg" alt="">
+        <button class="right btn" (click)="changeDisplay('next')"><i class="bi bi-caret-right-fill"></i></button>
+      </div>
+      <div class="detail">
+        <h5>Acceder a votre programme</h5>
+        <p> Cliquez sur <strong style="color: black !important;">Commencer</strong> pour acceder a l'emploie de temps la plus organisé</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="plus">
+    <a class="text-primary">En savoir plus sur </a> <span class="un">MY</span><span class="deux">sheduler</span>
+  </div>
+</div>
+
+
+
+</div>

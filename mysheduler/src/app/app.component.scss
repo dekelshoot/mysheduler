@@ -1,0 +1,62 @@
+// @import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Rubik+Wet+Paint&display=swap');
+
+a{
+  text-decoration: none;
+}
+.body{
+
+  background-color:whitesmoke;
+}
+
+.mod{
+  position: fixed; /* Stay in place */
+  z-index: 4111; /* Sit on top */
+  text-align: center;
+  left: 0;
+    top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  // background:#1b3a57;/* Fallback color */
+  // background-color: #0c2d48;
+  // background-color: #051e34;
+  background: linear-gradient( #051e34 ,#051e34);
+
+
+
+  .brand{
+    // font-family: 'Rubik Wet Paint', cursive;
+     font-family: 'Rubik Wet Paint', cursive;
+      font-weight: bold;
+      color: whitesmoke;
+      position:relative;
+      top:25%;
+    .un{
+      font-size: 500%;
+    }
+    .deux{
+      font-size: 300%;
+    }
+  }
+  .loading{
+    color: rgba(180, 179, 179, 0.678);
+  }
+
+}
+
+@media screen and (max-width: 400px) {
+  .mod{
+
+    .brand{
+        top:30%;
+      .un{
+        font-size: 350%;
+      }
+      .deux{
+        font-size: 200%;
+      }
+    }
+
+  }
+}

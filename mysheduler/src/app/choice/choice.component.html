@@ -1,0 +1,274 @@
+<nav class="navbar navbar-dark fixed-top  bg-purple">
+  <div class="container-fluid">
+    <a (click)="route('start')"><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">sheduler</span></span></a>
+  </div>
+</nav>
+<br><br><br><br><br>
+
+
+
+<div class="container conatain" *ngIf=" display==1" >
+  <div class="gauche">
+    <h1>Sélectionner votre filière pour accéder à votre emploie de temps </h1>
+    <h6>Sélectionner votre filière et ou votre specialité pour accéder à votre emploie de temps.</h6>
+    <br>
+    <div class="boutons">
+      <button (click)="route('auth/signin')" class="btn" >Sigin</button>
+      <button (click)="route('about')" class="btn" >About</button>
+    </div>
+    <hr>
+  </div>
+
+ <div>
+  <div class="boutons">
+    <button [ngClass]="{'active':choice==1}"   (click)="changeChoice(1)" class="btn" >Etudient</button>
+    <button [ngClass]="{'active':choice==2}"  (click)="changeChoice(2)" class="btn" >Salle</button>
+    <button [ngClass]="{'active':choice==3}"  (click)="changeChoice(3)" class="btn" >Filière</button>
+    <button [ngClass]="{'active':choice==4}"  (click)="changeChoice(4)" class="btn" >Niveau</button>
+    <button [ngClass]="{'active':choice==5}"  (click)="changeChoice(5)" class="btn" >Specialité</button>
+  </div>
+  <hr>
+  <div class="droite">
+    <!-- etudient -->
+    <div>
+      <form *ngIf="choice==1"  [formGroup]="choiceFormEtudient" (ngSubmit)="onSubmit()" >
+        <div class="cont">
+           <div>
+             <p></p>
+             <div class="col-md">
+
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="filiere">
+                   <option *ngFor="let filiere of filiere">{{filiere}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Filière</label>
+               </div>
+               <br>
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="niveau">
+                   <option *ngFor="let niveau of niveau">{{niveau}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Niveau</label>
+               </div>
+               <br>
+
+               <div class="form-floating" *ngIf="choiceFormEtudient.value.niveau == 'L3' || choiceFormEtudient.value.niveau == 'M1' || choiceFormEtudient.value.niveau == 'M2'">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="specialite">
+                   <option *ngFor="let specialite of specialite">{{specialite}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Spécialité</label>
+               </div>
+               <br>
+
+             </div>
+           </div>
+        </div>
+        <br>
+         <button [disabled]="choiceFormEtudient.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+       </form>
+    </div>
+    <!-- salle -->
+    <div>
+      <form *ngIf="choice==2" [formGroup]="choiceFormSalle" (ngSubmit)="onSubmit2()" >
+        <div class="cont">
+           <div>
+             <p></p>
+             <div class="col-md">
+
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="salle">
+                   <option *ngFor="let salle of salle">{{salle}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Salle</label>
+               </div>
+               <br>
+
+             </div>
+           </div>
+        </div>
+         <button [disabled]="choiceFormSalle.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+       </form>
+    </div>
+    <!--  -->
+
+    <!-- filière -->
+    <div>
+      <form *ngIf="choice==3" [formGroup]="choiceFormFiliere" (ngSubmit)="onSubmit3()" >
+        <div class="cont">
+           <div>
+             <p></p>
+             <div class="col-md">
+
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="filiere">
+                   <option *ngFor="let filiere of filiere">{{filiere}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Filière</label>
+               </div>
+               <br>
+
+             </div>
+           </div>
+        </div>
+         <button [disabled]="choiceFormFiliere.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+       </form>
+    </div>
+    <!--  -->
+     <!-- Niveau -->
+     <div>
+      <form *ngIf="choice==4" [formGroup]="choiceFormNiveau" (ngSubmit)="onSubmit4()" >
+        <div class="cont">
+           <div>
+             <p></p>
+             <div class="col-md">
+
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="niveau">
+                   <option *ngFor="let niveau of niveau">{{niveau}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Niveau</label>
+               </div>
+               <br>
+
+             </div>
+           </div>
+        </div>
+         <button [disabled]="choiceFormNiveau.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+       </form>
+    </div>
+    <!--  -->
+     <!-- Specialite -->
+     <div>
+      <form *ngIf="choice==5" [formGroup]="choiceFormSpecialite" (ngSubmit)="onSubmit5()" >
+        <div class="cont">
+           <div>
+             <p></p>
+             <div class="col-md">
+
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="specialite">
+                   <option *ngFor="let specialite of specialite">{{specialite}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Specialité</label>
+               </div>
+               <br>
+
+             </div>
+           </div>
+        </div>
+         <button [disabled]="choiceFormSpecialite.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+       </form>
+    </div>
+    <!--  -->
+
+
+
+<!--  -->
+</div>
+</div>
+</div>
+
+<!-- salle  -->
+<div class="container"  *ngIf="display==3 && sheduler=='salle'" >
+  <h1>Emploie de temps</h1>
+  <h6>Emploie de temps de {{data[0].code_salle}}. </h6>
+  <button  id="back" (click)="display=1" class="btn "><i class="bi bi-arrow-left-square-fill"></i>Retour</button>
+  <br><br>
+  <div class="bottom">
+    <table class=" table">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">jour</th>
+          <th scope="col">cours</th>
+          <th scope="col">salle</th>
+          <th scope="col">heur</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of data" >
+          <th scope="row">{{data.jour}}</th>
+          <td >{{data.code_cours}}</td>
+          <td >{{data.code_salle}}</td>
+          <td >{{data.heure_debut}} - {{data.heure_fin}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- filier  -->
+<div class="container"  *ngIf="display==3 && sheduler=='filiere'" >
+  <h1>Emploie de temps</h1>
+  <h6>Emploie de temps de {{data[0].code_salle}}. </h6>
+  <button  id="back" (click)="display=1" class="btn "><i class="bi bi-arrow-left-square-fill"></i>Retour</button>
+  <br><br>
+  <div class="bottom">
+    <table class=" table">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">jour</th>
+          <th scope="col">cours</th>
+          <th scope="col">salle</th>
+          <th scope="col">spécialité</th>
+          <th scope="col">enseignant</th>
+          <th scope="col">heur</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of data" >
+          <th scope="row">{{data.jour}}</th>
+          <td >{{data.code_cours}}</td>
+          <td >{{data.code_salle}}</td>
+          <td >{{data.code_specialite}}</td>
+          <td >{{data.nom}}</td>
+          <td >{{data.heure_debut}} - {{data.heure_fin}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Specialité  -->
+<div class="container"  *ngIf="display==5 && sheduler=='specialite'" >
+  <h1>Emploie de temps</h1>
+  <h6>Emploie de temps de {{data[0].code_salle}}. </h6>
+  <button  id="back" (click)="display=1" class="btn "><i class="bi bi-arrow-left-square-fill"></i>Retour</button>
+  <br><br>
+  <div class="bottom">
+    <table class=" table">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">jour</th>
+          <th scope="col">cours</th>
+          <th scope="col">salle</th>
+          <th scope="col">heur</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of data" >
+          <th scope="row">{{data.jour}}</th>
+          <td >{{data.code_cours}}</td>
+          <td >{{data.code_salle}}</td>
+          <td >{{data.heure_debut}} - {{data.heure_fin}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br><br><br><br><br><br>
+
+<div *ngIf="display==2"  style="align-items: center; text-align: center;">
+  <br><br><br><br>
+  <div>
+    <div class="spinner-border text-purple" role="status">
+      <span class="visually-hidden">Loading...</span>
+  </div>
+  <p style="color: rgb(143, 139, 133);">Loading...</p>
+  </div>
+  <br><br><br><br>
+</div>
+
+
+<br><br><br>
+
+
+
