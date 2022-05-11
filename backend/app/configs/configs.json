@@ -1,0 +1,8 @@
+{
+    "dbConfig":{
+        "host": "localhost",
+        "database": "mysheduler",
+        "user": "root",
+        "password": ""
+    }
+}
