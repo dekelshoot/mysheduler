@@ -14,8 +14,8 @@ export class RequetesService {
   get(base:any,id:any) {
     return this.http.get(`${base}/${id}`);
   }
-  getAll(base:any,data:any) {
-    return this.http.get(base,data);
+  getAll(base:any) {
+    return this.http.get(base);
   }
 
   //inserer les informations dans la bd

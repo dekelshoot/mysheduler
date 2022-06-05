@@ -8,10 +8,82 @@ export class ShedulerService {
 
   constructor(private daoService: DaoService ) { }
 
+  setCours(data:any){
+    return new Promise<void>(
+      (resolve,reject)=>{
+        this.daoService.postCours(data).subscribe(
+          (res:any)=>{
+            resolve(res)
+          }
+        )
+      }
+    )
+  }
+  setNewCours(data:any){
+    return new Promise<void>(
+      (resolve,reject)=>{
+        this.daoService.postNewCours(data).subscribe(
+          (res:any)=>{
+            resolve(res)
+          }
+        )
+      }
+    )
+  }
+
+
+  getNomProfesseur(){
+    return new Promise<void>(
+      (resolve,reject)=>{
+        this.daoService.getNomProfesseur().subscribe(
+          (res:any)=>{
+            resolve(res)
+          }
+        )
+      }
+    )
+  }
+  getCodeCours(){
+    return new Promise<void>(
+      (resolve,reject)=>{
+        this.daoService.getCodeCours().subscribe(
+          (res:any)=>{
+            resolve(res)
+          }
+        )
+      }
+    )
+  }
+
+  getPlage(){
+    return new Promise<void>(
+      (resolve,reject)=>{
+        this.daoService.getPlage().subscribe(
+          (res:any)=>{
+            resolve(res)
+          }
+        )
+      }
+    )
+  }
+
+
   shedulerFilier(data:any){
     return new Promise<void>(
       (resolve,reject)=>{
         this.daoService.getShedulerFiliere(data).subscribe(
+          (res:any)=>{
+            resolve(res)
+          }
+        )
+      }
+    )
+  }
+
+  shedulerNiveau(data:any){
+    return new Promise<void>(
+      (resolve,reject)=>{
+        this.daoService.getShedulerNiveau(data).subscribe(
           (res:any)=>{
             resolve(res)
           }
@@ -37,7 +109,7 @@ export class ShedulerService {
       (resolve,reject)=>{
         this.daoService.getShedulerFilierNiveau(data).subscribe(
           (res:any)=>{
-            console.log(res)
+            resolve(res)
           }
         )
       }
@@ -49,7 +121,7 @@ export class ShedulerService {
       (resolve,reject)=>{
         this.daoService.getShedulerFilierNiveauSpecialite(data).subscribe(
           (res:any)=>{
-            console.log(res)
+            resolve(res)
           }
         )
       }

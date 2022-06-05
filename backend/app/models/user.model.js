@@ -25,6 +25,20 @@ module.exports = class User{
         )
     }
 
+    static update(data){
+        return new Promise((resolve,reject)=>{
+            connection.query('UPDATE users SET users.password = ? WHERE users.email = ?', [data.password,data.email],
+                 function(err, results,fields) {
+                    //  console.log(results)
+                    if(err){
+                        reject(err)
+                    }
+                     resolve(results)
+                   })   
+        }
+        )
+    }   
+
     static save(user){
         return connection.query('INSERT INTO users SET email = ?,password = ? ',
             [user.email,user.password])

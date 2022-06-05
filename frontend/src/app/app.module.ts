@@ -17,6 +17,8 @@ import { AuthService } from './services/auth.service';
 import { ChoiceComponent } from './choice/choice.component';
 import { ArraysService } from './services/arrays.service';
 import { ShedulerService } from './services/sheduler.service';
+import {NgxPrintModule} from 'ngx-print';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -26,14 +28,16 @@ import { ShedulerService } from './services/sheduler.service';
     SiginComponent,
     SigupComponent,
     DashboardComponent,
-    ChoiceComponent
+    ChoiceComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPrintModule,
   ],
   providers: [
     DaoService,

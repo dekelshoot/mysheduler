@@ -47,10 +47,31 @@ emitUser(){
     );
   }
 
+
   signOut(){
     this.isAuth=false;
     this.user="";
     this.emitUser()
     this.emitAuth()
+  }
+
+  updatePassword(data:any){
+    return new Promise<void>(
+      (resolve,reject) => {
+        this.daoService.UpdateProfil(data).subscribe(
+          (res:any)=>{
+            this.isAuth=true;
+            this.emitAuth()
+            this.emitUser()
+            resolve(res)
+          },
+          error =>{
+            console.log(error)
+            reject(error)
+          }
+
+        )
+      }
+    )
   }
 }

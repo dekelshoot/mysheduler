@@ -31,8 +31,13 @@ const command = require('nodemon/lib/config/command')
 //     }
 // }
 
+exports.hello = async (req,res,next)=>{
+    console.log(res.body)
+    res.status(201).json({"message":"hello world"})
+}
 
 exports.signin = async (req,res,next)=>{
+    console.log(req.body)
      User.find(req.body.email).then(
          (data)=>{
             let user = data;
@@ -47,6 +52,7 @@ exports.signin = async (req,res,next)=>{
                 )
             }
             else{
+                console.log(user)
                 password = req.body.password;
                 bcrypt.compare(password,user[0].password).then(
                 (response)=>{
@@ -112,8 +118,67 @@ exports.signup = async (req,res,next)=>{
         
 }
 
-exports.salut =  (req,res,next)=>{
-    res.status(201).json({message:'User registred!'})
+
+
+exports.updateProfil = async (req,res,next)=>{
+    const email = req.body.email
+    const password = req.body.password
+    const newPassword = req.body.newPassword
+    console.log(password,newPassword)
+    const newHashedPassword = await bcrypt.hash(newPassword,12)
+    User.find(req.body.email).then(
+        (user)=>{
+            if(user.length==0){
+                console.log('pas bon')
+                res.status(201).json(
+                    {
+                        message:'cette email nexiste!',
+                        "set":false
+                    }
+                    )
+                // return Promise.reject('Email adress is already exist !!!')
+            }else{
+                
+                try{
+                    console.log(user[0])
+                    bcrypt.compare(password,user[0].password).then(
+                        (response)=>{
+                            console.log(response)
+                            if(response){
+                                const data ={
+                                    "email":email,
+                                    "password":newHashedPassword
+                                }
+                                User.update(data).then(
+                                    (response)=>{
+                                        res.status(201).json(
+                                            {
+                                                 "message":"le mot de passe a été modifié!!!",
+                                                 "set":true
+                                            }
+                                        )
+                                    }
+                                )
+                            }else{
+                                res.status(201).json(
+                                    {
+                                        "message":"le mot de passe ne corespond pas!!!" ,
+                                        "set":false
+                                    }
+                                )
+                            }
+                        }
+                    )
+            
+                }catch(err){
+                    if(!err.statusCode){
+                        err.statusCode = 500
+                    }
+                    next(err)
+                }
+            }
+        }
+    )
+    
+        
 }
-
-

@@ -28,6 +28,7 @@ app.get("/api", (req, res) => {
   
 require("./app/routes/auth.route")(app);
 require("./app/routes/sheduler.route")(app);
+require("./app/routes/simple.route")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;

@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ArraysService } from '../services/arrays.service';
 import { ShedulerService } from '../services/sheduler.service';
+import { jsPDF } from "jspdf";
+import { Subscription } from 'rxjs';
+import { Sheduler} from 'src/app/models/sheduler.model';
+
 
 @Component({
   selector: 'app-choice',
@@ -10,11 +14,16 @@ import { ShedulerService } from '../services/sheduler.service';
   styleUrls: ['./choice.component.scss']
 })
 export class ChoiceComponent implements OnInit {
+
+  @ViewChild('shedule', {static:false}) el!:ElementRef
+shedulers!:any;
+title="";
 faculte!:Array<string>;
 filiere!:string[];
 niveau!:Array<string>;
 specialite!:Array<string>;
 salle!:Array<string>;
+groupe!:object;
 choiceFormEtudient!: FormGroup;
 choiceFormSalle!: FormGroup;
 choiceFormFiliere!: FormGroup;
@@ -23,17 +32,21 @@ choiceFormSpecialite!: FormGroup;
 choice=1;
 data!:any;
 display=1;
-sheduler!:string;
+sheduler=false;
+shedulersDefaultSubscription! : Subscription;
   constructor(private router: Router,
               private arraysService: ArraysService,
               private formBuilder: FormBuilder,
-              private shedulerService:ShedulerService) { }
+              private shedulerService:ShedulerService,
+              ) { }
 
   ngOnInit(): void {
+    this.shedulers=new Sheduler().shedulersDefault
     this.faculte = this.arraysService.faculte;
     this.filiere = this.arraysService.filiere;
     this.niveau = this.arraysService.niveau;
     this.specialite = this.arraysService.specialiteInfo;
+    this.groupe = this.arraysService.groupe;
     this.salle = this.arraysService.salle;
     this.initForm();
   }
@@ -68,21 +81,36 @@ onSubmit(){
   const niveau = this.choiceFormEtudient.get('niveau')?.value;
   const specialite = this.choiceFormEtudient.get('specialite')?.value;
   const data = {
-    "filiere":this.filiereToCode(filiere),
+    "filiere":this.arraysService.filiereToCode(filiere),
     "niveau":niveau,
-    "specialite":"none"
+    "specialite":"none",
+    "groupe":"none",
+    "groupeset":"none"
   }
   if(specialite){
-    data.specialite=specialite
+    data.specialite=this.arraysService.specialiteToCode(specialite)
+    data.groupe=data.niveau+data.specialite
+    data.groupeset=this.arraysService.chargeGroupeSet(data.filiere,data.niveau)
+    console.log(data)
     this.shedulerService.shedulerFilierNiveauSpecialite(data).then(
       (data:any)=>{
-        this.data=this.order(data);
+        console.log(data)
+        this.title=data["title"]
+        this.shedulers=this.arraysService.chargeSheduler(data["data"])
+        this.sheduler=true
+        this.display=3
       }
     )
   }else{
+    data.groupe=data.niveau+data.filiere
+    console.log(data)
     this.shedulerService.shedulerFilierNiveau(data).then(
       (data:any)=>{
-        this.data=this.order(data);
+        console.log(data)
+        this.title=data["title"]
+        this.shedulers=this.arraysService.chargeSheduler(data["data"])
+        this.sheduler=true
+        this.display=3
       }
     )
     console.log(data)
@@ -98,8 +126,10 @@ onSubmit2(){
   }
  this.shedulerService.shedulerSalle(data).then(
    (data:any)=>{
-    this.data=this.order(data);
-    this.sheduler="salle"
+    console.log(data)
+    this.title=data["title"]
+    this.shedulers=this.arraysService.chargeSheduler(data["data"])
+    this.sheduler=true
     this.display=3
    }
  )
@@ -108,16 +138,18 @@ onSubmit3(){
   this.display=2
   const filiere = this.choiceFormFiliere.get('filiere')?.value;
   const data = {
-    "filiere":this.filiereToCode(filiere),
+    "filiere":this.arraysService.filiereToCode(filiere),
   }
   console.log(data)
   this.shedulerService.shedulerFilier(data).then(
     (data:any)=>{
-      this.data=this.order(data);
-      for(let dat of this.data){
-        dat.code_specialite = this.coteToSpecialite(dat.code_specialite)
-      }
-      this.sheduler="filiere"
+      console.log(data)
+      this.title=data["title"]
+      this.shedulers=this.arraysService.chargeSheduler(data["data"])
+      // for(let dat of this.shedulers){
+      //   dat.code_specialite = this.arraysService.coteToSpecialite(dat.code_specialite)
+      // }
+      this.sheduler=true
       this.display=3
     }
   )
@@ -128,85 +160,57 @@ onSubmit4(){
   const data = {
     "niveau":niveau,
   }
-//  this.shedulerService.shedulerSalle(data).then(
-//    (data:any)=>{
-//     this.data=this.order(data);
-//     console.log(this.data)
-//     this.sheduler="salle"
-//     this.display=3
-//    }
-//  )
+ this.shedulerService.shedulerNiveau(data).then(
+   (data:any)=>{
+    console.log(data)
+    this.title=data["title"]
+    this.shedulers=this.arraysService.chargeSheduler(data["data"])
+    this.sheduler=true
+    this.display=3
+    this.shedulers=this.arraysService.chargeSheduler(data["data"])
+   }
+ )
 }
 onSubmit5(){
   this.display=2
   const specialite = this.choiceFormSpecialite.get('specialite')?.value;
   const data = {
-    "specialite":this.specialiteToCode(specialite),
+    "specialite":this.arraysService.specialiteToCode(specialite),
   }
  this.shedulerService.shedulerSpecilate(data).then(
    (data:any)=>{
-    this.data=this.order(data);
-    this.sheduler="specialite"
-    this.display=5
+    console.log(data)
+    this.title=this.arraysService.coteToSpecialite(data["title"])
+    this.shedulers=this.arraysService.chargeSheduler(data["data"])
+    this.sheduler=true
+    this.display=3
    }
  )
 }
 
-filiereToCode(filiere:string){
-  const filiereList=this.arraysService.filiere;
-  const codes = this.arraysService.code
-  let index = filiereList.indexOf(filiere)
-  return codes[index]
-}
-coteToSpecialite(code:string){
-  const specialite = this.arraysService.specialite;
-  const codeSpecialite = this.arraysService.codeSpecial
-  let index = codeSpecialite.indexOf(code)
-  return specialite[index]
-}
-specialiteToCode(specialite:string){
-  const specialites = this.arraysService.specialite;
-  const codeSpecialite = this.arraysService.codeSpecial
-  let index = specialites.indexOf(specialite)
-  return codeSpecialite[index]
-}
 
 changeChoice(id:number){
   this.choice=id;
 }
 
-order(datas:any){
-  const jours = this.arraysService.jour
-  let data=[];
-  for(let jour of jours ){
-    let datatemp=[];
-    for(let dat of datas){
-      if( dat.jour==jour){
-        datatemp.push(dat)
-      }
-    }
-    datatemp = this.orderByheur(datatemp)
-    for(let dat of datatemp){
-      data.push(dat)
-    }
+
+  back(){
+    this.display=1;
+    this.sheduler=false;
+    this.initForm();
   }
-  return data
-}
-orderByheur(datas:any){
-  const heurs = this.arraysService.heur
-  let data=[];
-  for(let heur of heurs ){
-    for(let dat of datas){
-      if( dat.heure_debut==heur){
-        data.push(dat)
-      }
-    }
-  }
-  console.log(data)
-  return data
-}
+
   route(route:string){
     this.router.navigate([route]);
+  }
+
+  saveSheduler(id:string){
+    let pdf = new jsPDF('p','pt','a2');
+    pdf.html(this.el.nativeElement,{
+      callback: (pdf)=>{
+        pdf.save("sheduler.pdf")
+      }
+    })
   }
 
 

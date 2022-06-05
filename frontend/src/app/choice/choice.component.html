@@ -1,0 +1,330 @@
+<nav class="navbar navbar-dark fixed-top  bg-purple">
+  <div class="container-fluid">
+    <a (click)="route('start')"><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">sheduler</span></span></a>
+  </div>
+</nav>
+<br><br><br><br><br>
+
+
+<div class="container conatain" *ngIf=" display==1" >
+  <div class="gauche">
+    <h1>Sélectionner votre filière pour accéder à votre emploie de temps </h1>
+    <h6>Sélectionner votre filière et ou votre specialité pour accéder à votre emploie de temps.</h6>
+    <br>
+    <div class="boutons">
+      <button (click)="route('auth/signin')" class="btn" >Sigin</button>
+      <button (click)="route('about')" class="btn" >About</button>
+    </div>
+    <hr>
+  </div>
+
+ <div>
+  <div class="boutons">
+    <button [ngClass]="{'active':choice==1}"   (click)="changeChoice(1)" class="btn" >Etudiant</button>
+    <button [ngClass]="{'active':choice==2}"  (click)="changeChoice(2)" class="btn" >Salle</button>
+    <button [ngClass]="{'active':choice==3}"  (click)="changeChoice(3)" class="btn" >Filière</button>
+    <button [ngClass]="{'active':choice==4}"  (click)="changeChoice(4)" class="btn" >Niveau</button>
+    <button [ngClass]="{'active':choice==5}"  (click)="changeChoice(5)" class="btn" >Specialité</button>
+  </div>
+  <hr>
+  <div class="droite">
+    <!-- etudient -->
+    <div>
+      <form *ngIf="choice==1"  [formGroup]="choiceFormEtudient" (ngSubmit)="onSubmit()" >
+        <div class="cont">
+           <div>
+             <p></p>
+             <div class="col-md">
+
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="filiere">
+                   <option *ngFor="let filiere of filiere">{{filiere}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Filière</label>
+               </div>
+               <br>
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="niveau">
+                   <option *ngFor="let niveau of niveau">{{niveau}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Niveau</label>
+               </div>
+               <br>
+
+               <div class="form-floating" *ngIf="choiceFormEtudient.value.niveau == 'L3' || choiceFormEtudient.value.niveau == 'M1' || choiceFormEtudient.value.niveau == 'M2'">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="specialite">
+                   <option *ngFor="let specialite of specialite">{{specialite}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Spécialité</label>
+               </div>
+               <br>
+
+             </div>
+           </div>
+        </div>
+        <br>
+         <button [disabled]="choiceFormEtudient.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+       </form>
+    </div>
+    <!-- salle -->
+    <div>
+      <form *ngIf="choice==2" [formGroup]="choiceFormSalle" (ngSubmit)="onSubmit2()" >
+        <div class="cont">
+           <div>
+             <p></p>
+             <div class="col-md">
+
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="salle">
+                   <option *ngFor="let salle of salle">{{salle}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Salle</label>
+               </div>
+               <br>
+
+             </div>
+           </div>
+        </div>
+         <button [disabled]="choiceFormSalle.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+       </form>
+    </div>
+    <!--  -->
+
+    <!-- filière -->
+    <div>
+      <form *ngIf="choice==3" [formGroup]="choiceFormFiliere" (ngSubmit)="onSubmit3()" >
+        <div class="cont">
+           <div>
+             <p></p>
+             <div class="col-md">
+
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="filiere">
+                   <option *ngFor="let filiere of filiere">{{filiere}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Filière</label>
+               </div>
+               <br>
+
+             </div>
+           </div>
+        </div>
+         <button [disabled]="choiceFormFiliere.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+       </form>
+    </div>
+    <!--  -->
+     <!-- Niveau -->
+     <div>
+      <form *ngIf="choice==4" [formGroup]="choiceFormNiveau" (ngSubmit)="onSubmit4()" >
+        <div class="cont">
+           <div>
+             <p></p>
+             <div class="col-md">
+
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="niveau">
+                   <option *ngFor="let niveau of niveau">{{niveau}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Niveau</label>
+               </div>
+               <br>
+
+             </div>
+           </div>
+        </div>
+         <button [disabled]="choiceFormNiveau.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+       </form>
+    </div>
+    <!--  -->
+     <!-- Specialite -->
+     <div>
+      <form *ngIf="choice==5" [formGroup]="choiceFormSpecialite" (ngSubmit)="onSubmit5()" >
+        <div class="cont">
+           <div>
+             <p></p>
+             <div class="col-md">
+
+               <div class="form-floating">
+                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="specialite">
+                   <option *ngFor="let specialite of specialite">{{specialite}}</option>
+                 </select>
+                 <label for="floatingSelectGrid">Specialité</label>
+               </div>
+               <br>
+
+             </div>
+           </div>
+        </div>
+         <button [disabled]="choiceFormSpecialite.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+       </form>
+    </div>
+    <!--  -->
+
+
+
+<!--  -->
+</div>
+</div>
+</div>
+
+<div *ngIf="display==2"  style="align-items: center; text-align: center;">
+  <br><br><br><br>
+  <div>
+    <div class="spinner-border text-purple" role="status">
+      <span class="visually-hidden">Loading...</span>
+  </div>
+  <p style="color: rgb(143, 139, 133);">Loading...</p>
+  </div>
+  <br><br><br><br>
+</div>
+
+
+
+
+
+<div *ngIf="sheduler"  class="container"  >
+
+  <div  class="sheduler">
+    <div class="head">
+      <button (click)="back()"  class="btn "><i class="bi bi-arrow-left-square-fill"></i> Retour</button>
+      <button (click)="saveSheduler('#my-table')"  class="btn "><i class="bi bi-upload"></i> Exporter</button>
+    </div>
+   <div id="shedule" #shedule >
+    <div class="head2">
+      <p>{{title}}</p>
+      <br>
+    </div>
+    <table class=" table table-striped table-responsive table-sm table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col" class="centerCell">Horaire</th>
+          <th scope="col" class="centerCell">Lundi</th>
+          <th scope="col" class="centerCell">Mardi</th>
+          <th scope="col" class="centerCell">Mercredi</th>
+          <th scope="col" class="centerCell">Jeudi</th>
+          <th scope="col" class="centerCell">Vendredi</th>
+          <th scope="col" class="centerCell">Samedi</th>
+          <th scope="col" class="centerCell">Dimanche</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="shedulers['07:00:00']" >
+          <th scope="row" class="centerCell">7h00 - 9h55</th>
+          <td class="td centerCell" ><p>{{shedulers["Lundi"]["07:00:00"]["code_cours"]}}{{shedulers["Lundi"]["07:00:00"]["code_salle"]}}</p><p>{{shedulers["Lundi"]["07:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mardi"]["07:00:00"]["code_cours"]}}{{shedulers["Mardi"]["07:00:00"]["code_salle"]}}</p><p>{{shedulers["Mardi"]["07:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mercredi"]["07:00:00"]["code_cours"]}}{{shedulers["Mercredi"]["07:00:00"]["code_salle"]}}</p><p>{{shedulers["Mercredi"]["07:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Jeudi"]["07:00:00"]["code_cours"]}}{{shedulers["Jeudi"]["07:00:00"]["code_salle"]}}</p><p>{{shedulers["Jeudi"]["07:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Vendredi"]["07:00:00"]["code_cours"]}}{{shedulers["Vendredi"]["07:00:00"]["code_salle"]}}</p><p>{{shedulers["Vendredi"]["07:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Samedi"]["07:00:00"]["code_cours"]}}{{shedulers["Samedi"]["07:00:00"]["code_salle"]}}</p><p>{{shedulers["Samedi"]["07:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Dimanche"]["07:00:00"]["code_cours"]}}{{shedulers["Dimanche"]["07:00:00"]["code_salle"]}}</p><p>{{shedulers["Dimanche"]["07:00:00"]["nom_enseignant"]}}</p></td>
+        </tr>
+        <tr  *ngIf="shedulers['08:00:00']" >
+          <th scope="row" class="centerCell">8h00 - 10h00</th>
+          <td class="td centerCell" ><p>{{shedulers["Lundi"]["08:00:00"]["code_cours"]}}{{shedulers["Lundi"]["08:00:00"]["code_salle"]}}</p><p>{{shedulers["Lundi"]["08:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mardi"]["08:00:00"]["code_cours"]}}{{shedulers["Mardi"]["08:00:00"]["code_salle"]}}</p><p>{{shedulers["Mardi"]["08:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mercredi"]["08:00:00"]["code_cours"]}}{{shedulers["Mercredi"]["08:00:00"]["code_salle"]}}</p><p>{{shedulers["Mercredi"]["08:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Jeudi"]["08:00:00"]["code_cours"]}}{{shedulers["Jeudi"]["08:00:00"]["code_salle"]}}</p><p>{{shedulers["Jeudi"]["08:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Vendredi"]["08:00:00"]["code_cours"]}}{{shedulers["Vendredi"]["08:00:00"]["code_salle"]}}</p><p>{{shedulers["Vendredi"]["08:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Samedi"]["08:00:00"]["code_cours"]}}{{shedulers["Samedi"]["08:00:00"]["code_salle"]}}</p><p>{{shedulers["Samedi"]["08:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Dimanche"]["08:00:00"]["code_cours"]}}{{shedulers["Dimanche"]["08:00:00"]["code_salle"]}}</p><p>{{shedulers["Dimanche"]["08:00:00"]["nom_enseignant"]}}</p></td>
+        </tr>
+        <tr  *ngIf="shedulers['10:00:00']">
+          <th scope="row" class="centerCell">10h00 - 12h00</th>
+          <td class="td centerCell" ><p>{{shedulers["Lundi"]["10:00:00"]["code_cours"]}}{{shedulers["Lundi"]["10:00:00"]["code_salle"]}}</p><p>{{shedulers["Lundi"]["10:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mardi"]["10:00:00"]["code_cours"]}}{{shedulers["Mardi"]["10:00:00"]["code_salle"]}}</p><p>{{shedulers["Mardi"]["10:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mercredi"]["10:00:00"]["code_cours"]}}{{shedulers["Mercredi"]["10:00:00"]["code_salle"]}}</p><p>{{shedulers["Mercredi"]["10:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Jeudi"]["10:00:00"]["code_cours"]}}{{shedulers["Jeudi"]["10:00:00"]["code_salle"]}}</p><p>{{shedulers["Jeudi"]["10:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Vendredi"]["10:00:00"]["code_cours"]}}{{shedulers["Vendredi"]["10:00:00"]["code_salle"]}}</p><p>{{shedulers["Vendredi"]["10:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Samedi"]["10:00:00"]["code_cours"]}}{{shedulers["Samedi"]["10:00:00"]["code_salle"]}}</p><p>{{shedulers["Samedi"]["10:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Dimanche"]["10:00:00"]["code_cours"]}}{{shedulers["Dimanche"]["10:00:00"]["code_salle"]}}</p><p>{{shedulers["Dimanche"]["10:00:00"]["nom_enseignant"]}}</p></td>
+        </tr>
+        <tr  *ngIf="shedulers['10:05:00']">
+          <th scope="row" class="centerCell">10h05 - 12h55</th>
+          <td class="td centerCell" ><p>{{shedulers["Lundi"]["10:05:00"]["code_cours"]}}{{shedulers["Lundi"]["10:05:00"]["code_salle"]}}</p><p>{{shedulers["Lundi"]["10:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mardi"]["10:05:00"]["code_cours"]}}{{shedulers["Mardi"]["10:05:00"]["code_salle"]}}</p><p>{{shedulers["Mardi"]["10:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mercredi"]["10:05:00"]["code_cours"]}}{{shedulers["Mercredi"]["10:05:00"]["code_salle"]}}</p><p>{{shedulers["Mercredi"]["10:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Jeudi"]["10:05:00"]["code_cours"]}}{{shedulers["Jeudi"]["10:05:00"]["code_salle"]}}</p><p>{{shedulers["Jeudi"]["10:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Vendredi"]["10:05:00"]["code_cours"]}}{{shedulers["Vendredi"]["10:05:00"]["code_salle"]}}</p><p>{{shedulers["Vendredi"]["10:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Samedi"]["10:05:00"]["code_cours"]}}{{shedulers["Samedi"]["10:05:00"]["code_salle"]}}</p><p>{{shedulers["Samedi"]["10:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Dimanche"]["10:05:00"]["code_cours"]}}{{shedulers["Dimanche"]["10:05:00"]["code_salle"]}}</p><p>{{shedulers["Dimanche"]["10:05:00"]["nom_enseignant"]}}</p></td>
+        </tr>
+        <tr  *ngIf="shedulers['12:00:00']">
+          <th scope="row" class="centerCell">12h00 - 14h00</th>
+          <td class="td centerCell" ><p>{{shedulers["Lundi"]["12:00:00"]["code_cours"]}}{{shedulers["Lundi"]["12:00:00"]["code_salle"]}}</p><p>{{shedulers["Lundi"]["12:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mardi"]["12:00:00"]["code_cours"]}}{{shedulers["Mardi"]["12:00:00"]["code_salle"]}}</p><p>{{shedulers["Mardi"]["12:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mercredi"]["12:00:00"]["code_cours"]}}{{shedulers["Mercredi"]["12:00:00"]["code_salle"]}}</p><p>{{shedulers["Mercredi"]["12:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Jeudi"]["12:00:00"]["code_cours"]}}{{shedulers["Jeudi"]["12:00:00"]["code_salle"]}}</p><p>{{shedulers["Jeudi"]["12:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Vendredi"]["12:00:00"]["code_cours"]}}{{shedulers["Vendredi"]["12:00:00"]["code_salle"]}}</p><p>{{shedulers["Vendredi"]["12:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Samedi"]["12:00:00"]["code_cours"]}}{{shedulers["Samedi"]["12:00:00"]["code_salle"]}}</p><p>{{shedulers["Samedi"]["12:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Dimanche"]["12:00:00"]["code_cours"]}}{{shedulers["Dimanche"]["12:00:00"]["code_salle"]}}</p><p>{{shedulers["Dimanche"]["12:00:00"]["nom_enseignant"]}}</p></td>
+        </tr>
+        <tr *ngIf="shedulers['13:05:00']">
+          <th scope="row" class="centerCell">13h05 - 15h55</th>
+          <td class="td centerCell" ><p>{{shedulers["Lundi"]["13:05:00"]["code_cours"]}}{{shedulers["Lundi"]["13:05:00"]["code_salle"]}}</p><p>{{shedulers["Lundi"]["13:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mardi"]["13:05:00"]["code_cours"]}}{{shedulers["Mardi"]["13:05:00"]["code_salle"]}}</p><p>{{shedulers["Mardi"]["13:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mercredi"]["13:05:00"]["code_cours"]}}{{shedulers["Mercredi"]["13:05:00"]["code_salle"]}}</p><p>{{shedulers["Mercredi"]["13:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Jeudi"]["13:05:00"]["code_cours"]}}{{shedulers["Jeudi"]["13:05:00"]["code_salle"]}}</p><p>{{shedulers["Jeudi"]["13:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Vendredi"]["13:05:00"]["code_cours"]}}{{shedulers["Vendredi"]["13:05:00"]["code_salle"]}}</p><p>{{shedulers["Vendredi"]["13:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Samedi"]["13:05:00"]["code_cours"]}}{{shedulers["Samedi"]["13:05:00"]["code_salle"]}}</p><p>{{shedulers["Samedi"]["13:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Dimanche"]["13:05:00"]["code_cours"]}}{{shedulers["Dimanche"]["13:05:00"]["code_salle"]}}</p><p>{{shedulers["Dimanche"]["13:05:00"]["nom_enseignant"]}}</p></td>
+        </tr>
+        <tr  *ngIf="shedulers['13:15:00']">
+          <th scope="row" class="centerCell">13h15 - 15h55</th>
+          <td class="td centerCell" ><p>{{shedulers["Lundi"]["13:15:00"]["code_cours"]}}{{shedulers["Lundi"]["13:15:00"]["code_salle"]}}</p><p>{{shedulers["Lundi"]["13:15:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mardi"]["13:15:00"]["code_cours"]}}{{shedulers["Mardi"]["13:15:00"]["code_salle"]}}</p><p>{{shedulers["Mardi"]["13:15:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mercredi"]["13:15:00"]["code_cours"]}}{{shedulers["Mercredi"]["13:15:00"]["code_salle"]}}</p><p>{{shedulers["Mercredi"]["13:15:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Jeudi"]["13:15:00"]["code_cours"]}}{{shedulers["Jeudi"]["13:15:00"]["code_salle"]}}</p><p>{{shedulers["Jeudi"]["13:15:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Vendredi"]["13:15:00"]["code_cours"]}}{{shedulers["Vendredi"]["13:15:00"]["code_salle"]}}</p><p>{{shedulers["Vendredi"]["13:15:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Samedi"]["13:15:00"]["code_cours"]}}{{shedulers["Samedi"]["13:15:00"]["code_salle"]}}</p><p>{{shedulers["Samedi"]["13:15:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Dimanche"]["13:15:00"]["code_cours"]}}{{shedulers["Dimanche"]["13:15:00"]["code_salle"]}}</p><p>{{shedulers["Dimanche"]["13:15:00"]["nom_enseignant"]}}</p></td>
+        </tr>
+        <tr  *ngIf="shedulers['14:00:00']">
+          <th scope="row" class="centerCell">14h00 - 16h00</th>
+          <td class="td centerCell" ><p>{{shedulers["Lundi"]["14:00:00"]["code_cours"]}}{{shedulers["Lundi"]["14:00:00"]["code_salle"]}}</p><p>{{shedulers["Lundi"]["14:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mardi"]["14:00:00"]["code_cours"]}}{{shedulers["Mardi"]["14:00:00"]["code_salle"]}}</p><p>{{shedulers["Mardi"]["14:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mercredi"]["14:00:00"]["code_cours"]}}{{shedulers["Mercredi"]["14:00:00"]["code_salle"]}}</p><p>{{shedulers["Mercredi"]["14:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Jeudi"]["14:00:00"]["code_cours"]}}{{shedulers["Jeudi"]["14:00:00"]["code_salle"]}}</p><p>{{shedulers["Jeudi"]["14:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Vendredi"]["14:00:00"]["code_cours"]}}{{shedulers["Vendredi"]["14:00:00"]["code_salle"]}}</p><p>{{shedulers["Vendredi"]["14:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Samedi"]["14:00:00"]["code_cours"]}}{{shedulers["Samedi"]["14:00:00"]["code_salle"]}}</p><p>{{shedulers["Samedi"]["14:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Dimanche"]["14:00:00"]["code_cours"]}}{{shedulers["Dimanche"]["14:00:00"]["code_salle"]}}</p><p>{{shedulers["Dimanche"]["14:00:00"]["nom_enseignant"]}}</p></td>
+        </tr>
+        <tr  *ngIf="shedulers['16:00:00']">
+          <th scope="row" class="centerCell">16h00 - 18h00</th>
+          <td class="td centerCell" ><p>{{shedulers["Lundi"]["16:00:00"]["code_cours"]}}{{shedulers["Lundi"]["16:00:00"]["code_salle"]}}</p><p>{{shedulers["Lundi"]["16:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mardi"]["16:00:00"]["code_cours"]}}{{shedulers["Mardi"]["16:00:00"]["code_salle"]}}</p><p>{{shedulers["Mardi"]["16:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mercredi"]["16:00:00"]["code_cours"]}}{{shedulers["Mercredi"]["16:00:00"]["code_salle"]}}</p><p>{{shedulers["Mercredi"]["16:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Jeudi"]["16:00:00"]["code_cours"]}}{{shedulers["Jeudi"]["16:00:00"]["code_salle"]}}</p><p>{{shedulers["Jeudi"]["16:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Vendredi"]["16:00:00"]["code_cours"]}}{{shedulers["Vendredi"]["16:00:00"]["code_salle"]}}</p><p>{{shedulers["Vendredi"]["16:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Samedi"]["16:00:00"]["code_cours"]}}{{shedulers["Samedi"]["16:00:00"]["code_salle"]}}</p><p>{{shedulers["Samedi"]["16:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Dimanche"]["16:00:00"]["code_cours"]}}{{shedulers["Dimanche"]["16:00:00"]["code_salle"]}}</p><p>{{shedulers["Dimanche"]["16:00:00"]["nom_enseignant"]}}</p></td>
+        </tr>
+        <tr *ngIf="shedulers['16:05:00']" >
+          <th scope="row" class="centerCell">16h05 - 18h55</th>
+          <td class="td centerCell" ><p>{{shedulers["Lundi"]["16:05:00"]["code_cours"]}}{{shedulers["Lundi"]["16:05:00"]["code_salle"]}}</p><p>{{shedulers["Lundi"]["16:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mardi"]["16:05:00"]["code_cours"]}}{{shedulers["Mardi"]["16:05:00"]["code_salle"]}}</p><p>{{shedulers["Mardi"]["16:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mercredi"]["16:05:00"]["code_cours"]}}{{shedulers["Mercredi"]["16:05:00"]["code_salle"]}}</p><p>{{shedulers["Mercredi"]["16:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Jeudi"]["16:05:00"]["code_cours"]}}{{shedulers["Jeudi"]["16:05:00"]["code_salle"]}}</p><p>{{shedulers["Jeudi"]["16:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Vendredi"]["16:05:00"]["code_cours"]}}{{shedulers["Vendredi"]["16:05:00"]["code_salle"]}}</p><p>{{shedulers["Vendredi"]["16:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Samedi"]["16:05:00"]["code_cours"]}}{{shedulers["Samedi"]["16:05:00"]["code_salle"]}}</p><p>{{shedulers["Samedi"]["16:05:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Dimanche"]["16:05:00"]["code_cours"]}}{{shedulers["Dimanche"]["16:05:00"]["code_salle"]}}</p><p>{{shedulers["Dimanche"]["16:05:00"]["nom_enseignant"]}}</p></td>
+        </tr>
+        <tr  *ngIf="shedulers['18:00:00']">
+          <th scope="row" class="centerCell">18h00 - 21h55</th>
+          <td class="td centerCell" ><p>{{shedulers["Lundi"]["18:00:00"]["code_cours"]}}{{shedulers["Lundi"]["18:00:00"]["code_salle"]}}</p><p>{{shedulers["Lundi"]["18:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mardi"]["18:00:00"]["code_cours"]}}{{shedulers["Mardi"]["18:00:00"]["code_salle"]}}</p><p>{{shedulers["Mardi"]["18:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Mercredi"]["18:00:00"]["code_cours"]}}{{shedulers["Mercredi"]["18:00:00"]["code_salle"]}}</p><p>{{shedulers["Mercredi"]["18:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Jeudi"]["18:00:00"]["code_cours"]}}{{shedulers["Jeudi"]["18:00:00"]["code_salle"]}}</p><p>{{shedulers["Jeudi"]["18:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Vendredi"]["18:00:00"]["code_cours"]}}{{shedulers["Vendredi"]["18:00:00"]["code_salle"]}}</p><p>{{shedulers["Vendredi"]["18:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Samedi"]["18:00:00"]["code_cours"]}}{{shedulers["Samedi"]["18:00:00"]["code_salle"]}}</p><p>{{shedulers["Samedi"]["18:00:00"]["nom_enseignant"]}}</p></td>
+          <td class="td centerCell" ><p>{{shedulers["Dimanche"]["18:00:00"]["code_cours"]}}{{shedulers["Dimanche"]["18:00:00"]["code_salle"]}}</p><p>{{shedulers["Dimanche"]["18:00:00"]["nom_enseignant"]}}</p></td>
+        </tr>
+      </tbody>
+    </table>
+   </div>
+  </div>
+</div>
+
+<br><br><br>
+
+
+

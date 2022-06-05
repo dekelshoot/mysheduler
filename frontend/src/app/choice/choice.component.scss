@@ -24,12 +24,56 @@ a{
   text-decoration: none;
 }
 
+.sheduler{
 
+  .head{
+    display: flex;
+    justify-content: space-between;
+    background-color: #051e34;
+    // padding-top: 10px;
+    width: 100%;
+    button ,p {
+      color: white;
+    }
+  }
+  .head2{
+    // justify-content: center;
+    // align-items: center;
+    text-align: center;
+    background-color: #051e34;
+    font-weight: bold;
+    // padding-top: 10px;
+    width: 100%;
+    color: white;
+    margin: 0;
+  }
+
+  .table{
+    width: 100%;
+    .centerCell{
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+    .title{
+      width: 100%;
+    }
+    .td , .col{
+      height: 100px;
+      p{
+        margin: 0;
+      }
+
+
+    }
+  }
+}
 .conatain{
 
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
   .gauche{
     // background-color: #051e34;
     h1{
