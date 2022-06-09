@@ -8,7 +8,8 @@ export class AuthService {
   authSubject= new Subject<boolean>();
   userSubject= new Subject<string>();
   isAuth = false;
-  user="paulin.yonta@gmail.com";
+  user="";
+  statut="";
   constructor(private daoService: DaoService  ) { }
 
 emitAuth(){
@@ -29,9 +30,11 @@ emitUser(){
         }
         this.daoService.postUser(data).subscribe(
           (res:any) =>{
+            console.log(res)
             if(res.code==2){
               this.isAuth=true;
-              this.user=email;
+              this.user=res.email;
+              this.statut=res.statut
               this.emitAuth()
               this.emitUser()
             }

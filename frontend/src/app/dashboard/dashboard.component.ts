@@ -43,12 +43,14 @@ export class DashboardComponent implements OnInit {
   data2!:any;
   filNivSpes!:any;
   dataAdmin!:any;
+  datas!:any;
   profil!:any;
   charge=false;modal =true;
   profilForm!: FormGroup;
   messagePassword!:string;
   set:any;
   start=false;
+  statut=""
   constructor(private router: Router,
               private formBuilder: FormBuilder,
               private shedulerService:ShedulerService,
@@ -56,41 +58,47 @@ export class DashboardComponent implements OnInit {
               private arraysService:ArraysService) { }
 
   ngOnInit(): void {
-    this.shedulers=new Sheduler().shedulersDefault
-    this.shedulersAdmin=new Sheduler().shedulersDefault
-    this.filiere = this.arraysService.filiere;
-    this.jours = this.arraysService.jour;
-    this.jours.unshift("")
-    this.niveau = this.arraysService.niveau;
-    this.semestre = this.arraysService.semestre;
-    this.salle=this.arraysService.salle
-    this.plageHoraire = this.arraysService.plageHoraire;
-    this.specialite = this.arraysService.specialiteInfo;
-    this.mySidenav=document.getElementById("mySidenav");
-    this.main=document.getElementById("main");
-    this.shedulerService.getNomProfesseur().then(
-      (data:any)=>{
-        console.log(data)
-        this.professeur=data
-        this.professeur.unshift({nom_enseignant:''})
+    if(this.authService.user==""){
+      this.router.navigate(["start"])
+    }else{
+      this.statut=this.authService.statut;
+      if(this.statut=="admin"){
+        this.choice(4)
+      }else{
+        const data ={
+          "email":this.authService.user
+        }
+        this.chargeData(data)
       }
-    )
+      this.shedulers=new Sheduler().shedulersDefault
+      this.shedulersAdmin=new Sheduler().shedulersDefault
+      this.filiere = this.arraysService.filiere;
+      this.jours = this.arraysService.jour;
+      this.jours.unshift("")
+      this.niveau = this.arraysService.niveau;
+      this.semestre = this.arraysService.semestre;
+      this.salle=this.arraysService.salle
+      this.plageHoraire = this.arraysService.plageHoraire;
+      this.specialite = this.arraysService.specialiteInfo;
+      this.mySidenav=document.getElementById("mySidenav");
+      this.main=document.getElementById("main");
+      this.shedulerService.getNomProfesseur().then(
+        (data:any)=>{
+          console.log(data)
+          this.professeur=data
+          this.professeur.unshift({nom_enseignant:''})
+        }
+      )
 
 
-    this.shedulerService.getPlage().then(
-      (data:any)=>{
-        console.log(data)
-        this.plage=data
-        this.plage.unshift({heure_debut:'',heure_fin:''})
-      }
-    )
-
-
-    const data ={
-      "email":this.authService.user
+      this.shedulerService.getPlage().then(
+        (data:any)=>{
+          console.log(data)
+          this.plage=data
+          this.plage.unshift({heure_debut:'',heure_fin:''})
+        }
+      )
     }
-    this.chargeData(data)
-
     this.initForm()
   }
 
@@ -164,7 +172,7 @@ export class DashboardComponent implements OnInit {
     "groupeset":"none"
   }
   if(specialite){
-    data.specialite=this.arraysService.specialiteToCode(specialite)
+    data.specialite=this.arraysService.specialiteToCode(filiere,specialite)
     data.groupe=data.niveau+data.specialite
     data.groupeset=this.arraysService.chargeGroupeSet(data.filiere,data.niveau)
     console.log(data)
@@ -173,6 +181,7 @@ export class DashboardComponent implements OnInit {
     this.shedulerService.shedulerFilierNiveauSpecialite(data).then(
       (data:any)=>{
         console.log(data)
+        this.datas=data["data"]
         this.code=data["code"]
         this.code.unshift({code_cours:''})
         this.title=data["title"]
@@ -189,6 +198,7 @@ export class DashboardComponent implements OnInit {
     this.shedulerService.shedulerFilierNiveau(data).then(
       (data:any)=>{
         console.log(data)
+        this.datas=data["data"]
         this.code=data["code"]
         this.code.unshift({code_cours:''})
         this.title=data["title"]
@@ -236,6 +246,7 @@ export class DashboardComponent implements OnInit {
         this.initForm()
       }
     )
+    this.rechargeShedulerAdmin(this.dataAdmin);
 
   }
   onSubmitAdd(){
@@ -296,7 +307,7 @@ export class DashboardComponent implements OnInit {
       "groupe":"none"
     }
     if(specialite){
-      data.specialite=this.arraysService.specialiteToCode(specialite)
+      data.specialite=this.arraysService.specialiteToCode(filiere,specialite)
       data.groupe=data.niveau+data.specialite
     }else{
       if(data.niveau=="L3" || data.niveau=="M1"){
@@ -323,12 +334,59 @@ export class DashboardComponent implements OnInit {
     )
 
   }
+
+  deprogram(){
+    const datas = {
+      "heurDebut":this.heur.split("-")[0],
+      "heurFin":this.heur.split("-")[1],
+      "jour":this.jour,
+      "nom_enseignant":"none",
+      "salle":"none",
+      "code_cours":"none"
+    }
+    for(let dat of this.datas){
+      if(dat.heure_debut==datas.heurDebut && dat.heure_fin==datas.heurFin && dat.jour==datas.jour){
+        datas.code_cours=dat.code_cours;
+        datas.nom_enseignant=dat.nom_enseignant;
+        datas.salle=dat.code_salle;
+      }
+    }
+    console.log(datas)
+
+    if(datas.salle=="none"){
+      this.set=false
+      this.messagePassword="no course scheduled"
+      this.start=false
+      this.modal=false
+    }else{
+       this.shedulerService.deprogram(datas).then(
+          (data:any)=>{
+            if(data.code==200){
+              this.set=true
+              this.messagePassword=data.message
+
+            }else{
+              this.set=false
+              this.messagePassword=data.message
+            }
+            this.rechargeShedulerAdmin(this.dataAdmin);
+            this.start=false
+            this.modal=false
+            console.log(data)
+
+          }
+        )
+    }
+  }
+
+
   rechargeShedulerAdmin(data:object){
     if(this.dataAdmin.specialite){
       this.filNivSpes=data;
       this.shedulerService.shedulerFilierNiveauSpecialite(data).then(
         (data:any)=>{
           this.title=data["title"]
+          this.datas=data["data"]
           this.shedulersAdmin=this.arraysService.chargeSheduler(data["data"])
         }
       )
@@ -386,6 +444,17 @@ export class DashboardComponent implements OnInit {
       this.closeNav()
     }
 
+  }
+
+  onChangeNiveau(filiere:string,niveau:string){
+    if(niveau=="L3"|| niveau=="M1"){
+      if(filiere=="Informatique"){
+        this.specialite = this.arraysService.specialiteInfo;
+      }
+      if(filiere=="Mathématique"){
+        this.specialite = this.arraysService.specialiteMath;
+      }
+    }
   }
 
   closeNav() {

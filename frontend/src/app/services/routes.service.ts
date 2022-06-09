@@ -12,6 +12,7 @@ export class RoutesService {
   baseUrlProfil = 'http://localhost:3000/api/sheduler/profil';
   baseUrlUpdateProfil = 'http://localhost:3000/api/auth/update';
   baseUrlNewCours = 'http://localhost:3000/api/sheduler/newcours';
+  baseUrlDeprogram = 'http://localhost:3000/api/sheduler/deprogram';
   baseUrlSetCours = 'http://localhost:3000/api/sheduler/cours';
   baseUrlProf = 'http://localhost:3000/api/sheduler/prof';
   baseUrlNomProfesseur='http://localhost:3000/api/simple/professeur';

@@ -19,6 +19,9 @@ export class DaoService {
   postNewCours(data:any) {
     return this.requete.post(this.route.baseUrlNewCours,data)
   }
+  deprogram(data:any) {
+    return this.requete.post(this.route.baseUrlDeprogram,data)
+  }
   postCours(data:any) {
     return this.requete.post(this.route.baseUrlSetCours,data)
   }

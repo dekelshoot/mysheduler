@@ -13,6 +13,6 @@ export class AppComponent {
   ngOnInit(): void {
    setTimeout(()=>{
      this.start = false
-   },2000)
+   },5000)
 }
 }

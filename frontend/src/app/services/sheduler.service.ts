@@ -19,6 +19,18 @@ export class ShedulerService {
       }
     )
   }
+  
+  deprogram(data:any){
+    return new Promise<void>(
+      (resolve,reject)=>{
+        this.daoService.deprogram(data).subscribe(
+          (res:any)=>{
+            resolve(res)
+          }
+        )
+      }
+    )
+  }
   setNewCours(data:any){
     return new Promise<void>(
       (resolve,reject)=>{

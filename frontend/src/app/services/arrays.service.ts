@@ -8,21 +8,24 @@ export class ArraysService {
 
   constructor() { }
   filiere = ["","Informatique","Biosciences","Chimie","Geosciences","Mathématique","Physique"]
-  code = ["","INFO","BIOS","CHIM","GEOS","MAT","PHYS"]
-  niveau = ["","L1","L2","L3","M1","M2"]
+  code = ["","INFO","BIOS","CHIM","GEOS","MATH","PHYS"]
+  niveau = ["","L1","L2","L3","M1"]
   specialiteInfo = ["","Data Science","Génie Logiciel","Réseau","Sécurité"]
+  codeSpecialInfo = ["DS","GL","R","S"]
+  specialiteMath = ["","Analyse","Algèbre","Géometrie","Probabilité et statistique"]
+  codeSpecialiteMath = ["ANA","ALG","GEO","PROB&STAT"]
   faculte = ["","Sciences","Lettres"]
-  salle =["","A135","A250","A350","E204","R101","R102","R103","R104","R105","R110","S006","S008"]
+  salle =["","AI","AII","AIII","A135","A250","A350","A502","E203","E204","POLY I","R101","R102","R103","R104","R105","R110","S003","S006","S008"]
   jour = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"]
   heur= ["07:00:00","10:05:00","13:15:00","16:00:00","16:05:00"]
-  codeSpecial = ["DS","GL","R","S"]
-  specialite = ["Data Science","Génie Logiciel","Réseau","Sécurité"]
+  // specialite = ["Data Science","Génie Logiciel","Réseau","Sécurité"]
   grade = ["Docteur","Professeur"]
   codeGrade = ["Dr","Pr"]
   semestre = ["","SEM1","SEM2"]
   plageHoraire = ["07:00:00 - 09:55:00","08:00:00 - 10:00:00","10:05:00 - 12:55:00","13:05:00 - 15:55:00","13:15:00 - 15:55:00","14:00:00 - 16:00:00","16:00:00 - 18:00:00","16:05:00 - 18:55:00","18:00:00 - 21:55:00"]
   groupe = {
     INFO:"DS_GL_R_S",
+    MATH:"MATH",
     L3:{
       "L3DS":"L3DS_GL_R_S", "L3GL":"L3DS_GL_R_S", "L3R":"L3DS_GL_R_S", "L3S":"L3DS_GL_R_S",
     },
@@ -1002,21 +1005,41 @@ filiereToCode(filiere:string){
   return codes[index]
 }
 coteToSpecialite(code:string){
-  const specialite = this.specialite;
-  const codeSpecialite = this.codeSpecial
+  let specialite:any;
+  let codeSpecialite:any;
+  if (code=="INFO"){
+     specialite = this.specialiteInfo;
+     codeSpecialite = this.codeSpecialInfo
+  }
+  if (code=="MATH"){
+     specialite = this.specialiteMath;
+     codeSpecialite = this.codeSpecialiteMath
+  }
+
   let index = codeSpecialite.indexOf(code)
-  return specialite[index]
+  return specialite[index+1]
 }
-specialiteToCode(specialite:string){
-  const specialites = this.specialite;
-  const codeSpecialite = this.codeSpecial
+specialiteToCode(filiere:string,specialite:string){
+  let specialites:any;
+  let codeSpecialite:any;
+  if (filiere=="Informatique"){
+     specialites = this.specialiteInfo;
+     codeSpecialite = this.codeSpecialInfo
+  }
+  if (filiere=="Mathématique"){
+     specialites = this.specialiteMath;
+     codeSpecialite = this.codeSpecialiteMath
+  }
   let index = specialites.indexOf(specialite)
-  return codeSpecialite[index]
+  return codeSpecialite[index-1]
 }
 
 chargeGroupeSet(filiere:string,niveau:string){
     if(filiere=="INFO"){
       return niveau+this.groupe.INFO
+    }
+    if(filiere=="MATH"){
+      return niveau+this.groupe.MATH
     }
     return ""
 }

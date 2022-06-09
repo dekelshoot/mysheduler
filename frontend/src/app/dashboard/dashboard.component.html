@@ -1,29 +1,29 @@
 <div class="body">
   <div class="left">
     <br><br><br><br>
-    <div> <button [ngClass]="{'active': choix==1}" (click)="choice(1)"  class="btn"><i class="bi bi-table"></i> </button> <hr></div>
-    <div> <button [ngClass]="{'active': choix==2}" (click)="choice(2)" class="btn"><i class="bi bi-calendar-day"></i></button> <hr></div>
-    <div> <button [ngClass]="{'active': choix==3}" (click)="choice(3)" class="btn"><i class="bi bi-megaphone"></i></button> <hr></div>
-    <div> <button [ngClass]="{'active': choix==4}" (click)="choice(4)" class="btn"><i class="bi bi-file-spreadsheet"></i></button> <hr></div>
-    <div> <button [ngClass]="{'active': choix==5}" (click)="choice(5)" class="btn"><i class="bi bi-person"></i></button> <hr></div>
-    <div> <button [ngClass]="{'active': choix==6}" (click)="logOut()"class="btn"><i class="bi bi-box-arrow-right"></i></button> <hr></div>
-    <div> <button (click)="openNav()" class="btn"><i class="bi bi-caret-right"></i></button> </div>
+    <div *ngIf="statut=='enseignant'" > <button [ngClass]="{'active': choix==1}" (click)="choice(1)"  class="btn"><i class="bi bi-table"></i> </button> <hr></div>
+    <div *ngIf="statut=='enseignant'" > <button [ngClass]="{'active': choix==2}" (click)="choice(2)" class="btn"><i class="bi bi-calendar-day"></i></button> <hr></div>
+    <div *ngIf="statut=='enseignant'" > <button [ngClass]="{'active': choix==3}" (click)="choice(3)" class="btn"><i class="bi bi-megaphone"></i></button> <hr></div>
+    <div  *ngIf="statut=='admin'"> <button [ngClass]="{'active': choix==4}" (click)="choice(4)" class="btn"><i class="bi bi-file-spreadsheet"></i></button> <hr></div>
+    <div *ngIf="statut=='enseignant'" > <button [ngClass]="{'active': choix==5}" (click)="choice(5)" class="btn"><i class="bi bi-person"></i></button> <hr></div>
+    <div *ngIf="statut=='enseignant'" > <button [ngClass]="{'active': choix==6}" (click)="logOut()"class="btn"><i class="bi bi-box-arrow-right"></i></button> <hr></div>
+    <div *ngIf="statut=='enseignant'" > <button (click)="openNav()" class="btn"><i class="bi bi-caret-right"></i></button> </div>
   </div>
   <div id="mySidenav" class="sidenav">
     <br><br><br><br>
-    <div> <button [ngClass]="{'active': choix==1}" (click)="choice(1)" class="btn"><i class="bi bi-table"></i> <span>Emploie de temps</span></button> <hr></div>
-    <div> <button [ngClass]="{'active': choix==2}" (click)="choice(2)" class="btn"><i class="bi bi-calendar-day"></i> <span>Programmer un TD</span></button> <hr></div>
-    <div> <button [ngClass]="{'active': choix==3}" (click)="choice(3)" class="btn"><i class="bi bi-megaphone"></i> <span>Passer un communiqué</span></button>  <hr></div>
-    <div> <button [ngClass]="{'active': choix==4}" (click)="choice(4)" class="btn"><i class="bi bi-file-spreadsheet"></i> <span>Programme</span></button> <hr></div>
-    <div> <button [ngClass]="{'active': choix==5}" (click)="choice(5)" class="btn"><i class="bi bi-person"></i> <span>Profil</span></button> <hr></div>
-    <div> <button [ngClass]="{'active': choix==6}" (click)="logOut()" class="btn"><i class="bi bi-box-arrow-right"></i> <span>logout</span></button> <hr></div>
-    <div > <button (click)="closeNav()" class="btn close"><i class="bi bi-caret-left"></i></button> </div>
+    <div *ngIf="statut=='enseignant'" > <button [ngClass]="{'active': choix==1}" (click)="choice(1)" class="btn"><i class="bi bi-table"></i> <span>Schedule</span></button> <hr></div>
+    <div *ngIf="statut=='enseignant'" > <button [ngClass]="{'active': choix==2}" (click)="choice(2)" class="btn"><i class="bi bi-calendar-day"></i> <span>Schedule a tutorial</span></button> <hr></div>
+    <div *ngIf="statut=='enseignant'" > <button [ngClass]="{'active': choix==3}" (click)="choice(3)" class="btn"><i class="bi bi-megaphone"></i> <span>Submit a press release</span></button>  <hr></div>
+    <div   *ngIf="statut=='admin'" > <button [ngClass]="{'active': choix==4}" (click)="choice(4)" class="btn"><i class="bi bi-file-spreadsheet"></i> <span>Schedule a lesson</span></button> <hr></div>
+    <div *ngIf="statut=='enseignant'" > <button [ngClass]="{'active': choix==5}" (click)="choice(5)" class="btn"><i class="bi bi-person"></i> <span>Profile</span></button> <hr></div>
+    <div *ngIf="statut=='enseignant'" > <button [ngClass]="{'active': choix==6}" (click)="logOut()" class="btn"><i class="bi bi-box-arrow-right"></i> <span>logout</span></button> <hr></div>
+    <div *ngIf="statut=='enseignant'"  > <button (click)="closeNav()" class="btn close"><i class="bi bi-caret-left"></i></button> </div>
   </div>
   <div id="main" class="right">
     <nav class="navbar navbar-dark fixed-top   bg-purple">
       <div class="container-fluid">
         <span style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776;</span>
-        <a (click)="route('start')"><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">sheduler</span></span></a>
+        <a (click)="route('start')"><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">scheduler</span></span></a>
         <form class="d-flex">
           <button class="btn" (click)="choice(5)"><img style="border-radius: 100px;width: 50px;height: 50px;overflow: hidden;" width="30" src="../../assets/1.png" alt=""></button>
           <button class="btn"><i class="bi bi-bell"></i></button>
@@ -72,14 +72,14 @@
           <table class=" table table-striped table-responsive table-sm table-bordered">
             <thead class="table-dark">
               <tr>
-                <th scope="col" class="centerCell">Horaire</th>
-                <th scope="col" class="centerCell">Lundi</th>
-                <th scope="col" class="centerCell">Mardi</th>
-                <th scope="col" class="centerCell">Mercredi</th>
-                <th scope="col" class="centerCell">Jeudi</th>
-                <th scope="col" class="centerCell">Vendredi</th>
-                <th scope="col" class="centerCell">Samedi</th>
-                <th scope="col" class="centerCell">Dimanche</th>
+                <th scope="col" class="centerCell">Hourly</th>
+                <th scope="col" class="centerCell">Monday</th>
+                <th scope="col" class="centerCell">Tuesday</th>
+                <th scope="col" class="centerCell">Wednesday</th>
+                <th scope="col" class="centerCell">Thursday</th>
+                <th scope="col" class="centerCell">Friday</th>
+                <th scope="col" class="centerCell">Saturday</th>
+                <th scope="col" class="centerCell">Sunday</th>
               </tr>
             </thead>
             <tbody>
@@ -205,8 +205,8 @@
 <div class="container conatain" *ngIf="choix==4 && displayAdd==1" >
   <div class="gauche">
     <br><br><br><br>
-    <h1>Sélectionner La filière pour accéder à l' emploie de temps </h1>
-    <h6>Sélectionner La filière et ou votre specialité pour accéder à L' emploie de temps en fin de le modifier.</h6>
+    <h1>Select The sector to access the timetable </h1>
+    <h6>Select The sector and or your specialty to access The timetable at the end of modifying it.</h6>
     <hr>
   </div>
 
@@ -223,17 +223,17 @@
              <div class="col-md">
 
                <div class="form-floating">
-                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="filiere">
+                 <select (change)="onChangeNiveau(this.choiceFormEtudient.get('filiere')?.value,this.choiceFormEtudient.get('niveau')?.value)" class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="filiere">
                    <option *ngFor="let filiere of filiere">{{filiere}}</option>
                  </select>
-                 <label for="floatingSelectGrid">Filière</label>
+                 <label for="floatingSelectGrid">Sector</label>
                </div>
                <br>
                <div class="form-floating">
-                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="niveau">
+                 <select (change)="onChangeNiveau(this.choiceFormEtudient.get('filiere')?.value,this.choiceFormEtudient.get('niveau')?.value)" class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="niveau">
                    <option *ngFor="let niveau of niveau">{{niveau}}</option>
                  </select>
-                 <label for="floatingSelectGrid">Niveau</label>
+                 <label for="floatingSelectGrid">Level</label>
                </div>
                <br>
 
@@ -241,7 +241,7 @@
                  <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="specialite">
                    <option *ngFor="let specialite of specialite">{{specialite}}</option>
                  </select>
-                 <label for="floatingSelectGrid">Spécialité</label>
+                 <label for="floatingSelectGrid">Speciality</label>
                </div>
                <br>
 
@@ -249,7 +249,7 @@
            </div>
         </div>
         <br>
-         <button [disabled]="choiceFormEtudient.invalid " id="submit1" type="submit" class="btn ">Regarder</button>
+         <button [disabled]="choiceFormEtudient.invalid " id="submit1" type="submit" class="btn ">To look at</button>
        </form>
     </div>
 
@@ -277,43 +277,43 @@
             <div class="col-md">
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput" placeholder="Intitulé" formControlName="intitule" >
-                <label for="floatingInput">Intitulé</label>
+                <label for="floatingInput">Entitled</label>
               </div>
 
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingPassword" placeholder="Code cours" formControlName="code_cours" >
-                <label for="floatingPassword">Code cours</label>
+                <label for="floatingPassword">Course code</label>
               </div>
 
               <div  class="form-floating mb-3">
                 <select  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="filiere" >
                   <option  *ngFor="let filiere of filiere">{{filiere}}</option>
                 </select>
-                <label for="floatingSelectGrid">Filière</label>
+                <label for="floatingSelectGrid">Sector</label>
               </div>
               <div  class="form-floating mb-3">
                 <select  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="niveau" >
                   <option  *ngFor="let niveau of niveau">{{niveau}}</option>
                 </select>
-                <label for="floatingSelectGrid">niveau</label>
+                <label for="floatingSelectGrid">Level</label>
               </div>
               <div class="form-floating mb-3" *ngIf="addCoursForm.value.niveau == 'L3' || addCoursForm.value.niveau == 'M1' || addCoursForm.value.niveau == 'M2'">
                  <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="specialite">
                    <option *ngFor="let specialite of specialite">{{specialite}}</option>
                  </select>
-                 <label for="floatingSelectGrid">Spécialité</label>
+                 <label for="floatingSelectGrid">Speciality</label>
                </div>
               <div  class="form-floating mb-3">
                 <select  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="semestre" >
                   <option  *ngFor="let semestre of semestre">{{semestre}}</option>
                 </select>
-                <label for="floatingSelectGrid">semestre</label>
+                <label for="floatingSelectGrid">semester</label>
               </div>
             </div>
           </div>
        </div>
        <br>
-        <button [disabled]="addCoursForm.invalid "   data-bs-toggle="modal" data-bs-target="#addcours"  type="submit"  class="btn btn-modal " value="Log In" id="submit3"   >Ajouter</button>
+        <button [disabled]="addCoursForm.invalid "   data-bs-toggle="modal" data-bs-target="#addcours"  type="submit"  class="btn btn-modal " value="Log In" id="submit3"   >Add</button>
       </form>
     </div>
   </div>
@@ -322,7 +322,7 @@
 <br><br>
   <!-- Programmer un cour -->
 <div class="container addcours" *ngIf="choix==4 && displayAdd==1">
-  <h1>Programmer un cours </h1>
+  <h1>Schedule a lesson </h1>
 
   <div class="content">
     <div>
@@ -335,42 +335,42 @@
                 <select  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="code_cours" >
                   <option  *ngFor="let code of code">{{code.code_cours}}</option>
                 </select>
-                <label for="floatingSelectGrid">Code</label>
+                <label for="floatingSelectGrid">Coded</label>
               </div>
 
               <div  class="form-floating mb-3">
                 <select  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="salle" >
                   <option  *ngFor="let salle of salle">{{salle}}</option>
                 </select>
-                <label for="floatingSelectGrid">Salle</label>
+                <label for="floatingSelectGrid">Hall</label>
               </div>
 
               <div  class="form-floating mb-3">
                 <select  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="professeur" >
                   <option  *ngFor="let professeur of professeur">{{professeur.nom_enseignant}}</option>
                 </select>
-                <label for="floatingSelectGrid">Professeur</label>
+                <label for="floatingSelectGrid">Teacher</label>
               </div>
 
               <div  class="form-floating mb-3">
                 <select  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="jour" >
                   <option  *ngFor="let jour of jours">{{jour}}</option>
                 </select>
-                <label for="floatingSelectGrid">Jour</label>
+                <label for="floatingSelectGrid">day</label>
               </div>
 
               <div  class="form-floating mb-3">
                 <select  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="plage" >
                   <option  *ngFor="let plage of plage">{{plage.heure_debut}}  {{plage.heure_fin}}</option>
                 </select>
-                <label for="floatingSelectGrid">plage</label>
+                <label for="floatingSelectGrid">time slots</label>
               </div>
 
             </div>
           </div>
        </div>
        <br>
-        <button [disabled]="addForm.invalid "   data-bs-toggle="modal" data-bs-target="#exampleModal"  type="submit"  class="btn btn-modal " value="Log In" id="submit3"   >Programmer</button>
+        <button [disabled]="addForm.invalid "   data-bs-toggle="modal" data-bs-target="#exampleModal"  type="submit"  class="btn btn-modal " value="Log In" id="submit3"   >Program</button>
       </form>
     </div>
   </div>
@@ -390,14 +390,14 @@
         <table class=" table table-striped table-responsive table-sm table-bordered">
           <thead class="table-dark">
             <tr>
-              <th scope="col" class="centerCell center">Horaire</th>
-              <th scope="col" class="centerCell center">Lundi</th>
-              <th scope="col" class="centerCell center">Mardi</th>
-              <th scope="col" class="centerCell center">Mercredi</th>
-              <th scope="col" class="centerCell center">Jeudi</th>
-              <th scope="col" class="centerCell center">Vendredi</th>
-              <th scope="col" class="centerCell center">Samedi</th>
-              <th scope="col" class="centerCell center">Dimanche</th>
+              <th scope="col" class="centerCell center">Hourly</th>
+              <th scope="col" class="centerCell center">Monday</th>
+              <th scope="col" class="centerCell center">Tuesday</th>
+              <th scope="col" class="centerCell center">Wednesday</th>
+              <th scope="col" class="centerCell center">Thursday</th>
+              <th scope="col" class="centerCell center">Friday</th>
+              <th scope="col" class="centerCell center">Saturday</th>
+              <th scope="col" class="centerCell center">Sunday</th>
             </tr>
           </thead>
           <tbody>
@@ -540,9 +540,9 @@
     </div>
 
     <div class="right ">
-      <h3><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">sheduler</span></span></h3>
+      <h3><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">scheduler</span></span></h3>
       <hr>
-      <h3>Modifier son profil</h3>
+      <h3>Edit profile</h3>
       <br>
 
       <form  [formGroup]="profilForm" (ngSubmit)="onSubmit()">
@@ -564,7 +564,7 @@
             <input type="password" class="form-control"  formControlName = "newPassword">
           </div>
         </div>
-        <button    data-bs-toggle="modal" data-bs-target="#exampleModal"  type="submit"  class="btn btn-modal " value="Log In" id="submit2"   >Modifier</button>
+        <button    data-bs-toggle="modal" data-bs-target="#exampleModal"  type="submit"  class="btn btn-modal " value="Log In" id="submit2"   >Edit</button>
       </form>
       </div>
 
@@ -603,27 +603,30 @@
                         <select  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="code_cours" >
                           <option  *ngFor="let code of code">{{code.code_cours}}</option>
                         </select>
-                        <label for="floatingSelectGrid">Code</label>
+                        <label for="floatingSelectGrid">Coded</label>
                       </div>
 
                       <div  class="form-floating mb-3">
                         <select  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="salle" >
                           <option  *ngFor="let salle of salle">{{salle}}</option>
                         </select>
-                        <label for="floatingSelectGrid">Salle</label>
+                        <label for="floatingSelectGrid">Hall</label>
                       </div>
 
                       <div  class="form-floating mb-3">
                         <select  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="professeur" >
                           <option  *ngFor="let professeur of professeur">{{professeur.nom_enseignant}}</option>
                         </select>
-                        <label for="floatingSelectGrid">Professeur</label>
+                        <label for="floatingSelectGrid">Teacher</label>
                       </div>
                     </div>
                   </div>
                </div>
                <br>
-                <button [disabled]="addFormGraph.invalid "   data-bs-toggle="modal" data-bs-target="#exampleModal"  type="submit"  class="btn btn-modal " value="Log In" id="submit3"   >Ajouter</button>
+               <div class="foot">
+                <button (click)="deprogram()"  data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"  class="btn  btn-danger "   >Deprogram</button>
+                <button [disabled]="addFormGraph.invalid "   data-bs-toggle="modal" data-bs-target="#exampleModal"  type="submit"  class="btn btn-modal " value="Log In" id="submit3"   >Add</button>
+               </div>
               </form>
             </div>
           </div>
@@ -673,11 +676,11 @@
     <div class="modal-content cont-modal">
       <div class="modal-body">
          <div *ngIf="modal==true"  class="head">
-              <h5 class="modal-title" id="exampleModalLabel">Ajouter un cours</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Add a course</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div *ngIf="!modal" class="head">
-            <h5 class="modal-title" id="exampleModalLabel">Ajouter un cours</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Add a course</h5>
             <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
           <br>

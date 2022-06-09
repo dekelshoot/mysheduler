@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark fixed-top  bg-purple">
   <div class="container-fluid">
-    <a (click)="route('start')"><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">sheduler</span></span></a>
+    <a (click)="route('start')"><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">scheduler</span></span></a>
   </div>
 </nav>
 <div class="body">
@@ -11,9 +11,9 @@
       <img src="../../../assets/6.png" alt="">
     </div>
     <div class="right ">
-        <h3><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">sheduler</span></span></h3>
+        <h3><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">scheduler</span></span></h3>
         <hr>
-        <h3>Se connecter</h3>
+        <h3>LOG IN</h3>
         <br>
 
         <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" >
@@ -50,7 +50,7 @@
           </div>
           <div *ngIf="!modal" class="head">
             <h5 class="modal-title" id="exampleModalLabel">Connexion</h5>
-            <button type="button" (click)="route('accueil')" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" (click)="route('dashboard')" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
           <br>
           <div class="content">

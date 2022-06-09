@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark fixed-top  bg-purple">
   <div class="container-fluid">
-    <a (click)="route('start')"><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">sheduler</span></span></a>
+    <a (click)="route('start')"><span class="navbar-brand brand mb-0 h1"><span class="un">MY</span><span class="deux">scheduler</span></span></a>
   </div>
 </nav>
 <br><br><br><br><br>
@@ -8,8 +8,8 @@
 
 <div class="container conatain" *ngIf=" display==1" >
   <div class="gauche">
-    <h1>Sélectionner votre filière pour accéder à votre emploie de temps </h1>
-    <h6>Sélectionner votre filière et ou votre specialité pour accéder à votre emploie de temps.</h6>
+    <h1>Select your sector to access your timetable</h1>
+    <h6>Select your sector and/or your specialty to access your schedule.</h6>
     <br>
     <div class="boutons">
       <button (click)="route('auth/signin')" class="btn" >Sigin</button>
@@ -20,11 +20,11 @@
 
  <div>
   <div class="boutons">
-    <button [ngClass]="{'active':choice==1}"   (click)="changeChoice(1)" class="btn" >Etudiant</button>
-    <button [ngClass]="{'active':choice==2}"  (click)="changeChoice(2)" class="btn" >Salle</button>
-    <button [ngClass]="{'active':choice==3}"  (click)="changeChoice(3)" class="btn" >Filière</button>
-    <button [ngClass]="{'active':choice==4}"  (click)="changeChoice(4)" class="btn" >Niveau</button>
-    <button [ngClass]="{'active':choice==5}"  (click)="changeChoice(5)" class="btn" >Specialité</button>
+    <button [ngClass]="{'active':choice==1}"   (click)="changeChoice(1)" class="btn" >Student</button>
+    <button [ngClass]="{'active':choice==2}"  (click)="changeChoice(2)" class="btn" >Hall</button>
+    <button [ngClass]="{'active':choice==3}"  (click)="changeChoice(3)" class="btn" >Sector</button>
+    <button [ngClass]="{'active':choice==4}"  (click)="changeChoice(4)" class="btn" >Level</button>
+    <button [ngClass]="{'active':choice==5}"  (click)="changeChoice(5)" class="btn" >Speciality</button>
   </div>
   <hr>
   <div class="droite">
@@ -37,17 +37,17 @@
              <div class="col-md">
 
                <div class="form-floating">
-                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="filiere">
+                 <select (change)="onChangeNiveau(this.choiceFormEtudient.get('filiere')?.value,this.choiceFormEtudient.get('niveau')?.value)" class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="filiere">
                    <option *ngFor="let filiere of filiere">{{filiere}}</option>
                  </select>
-                 <label for="floatingSelectGrid">Filière</label>
+                 <label for="floatingSelectGrid">Sector</label>
                </div>
                <br>
                <div class="form-floating">
-                 <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="niveau">
+                 <select (change)="onChangeNiveau(this.choiceFormEtudient.get('filiere')?.value,this.choiceFormEtudient.get('niveau')?.value)"  class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="niveau">
                    <option *ngFor="let niveau of niveau">{{niveau}}</option>
                  </select>
-                 <label for="floatingSelectGrid">Niveau</label>
+                 <label for="floatingSelectGrid">Level</label>
                </div>
                <br>
 
@@ -55,7 +55,7 @@
                  <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="specialite">
                    <option *ngFor="let specialite of specialite">{{specialite}}</option>
                  </select>
-                 <label for="floatingSelectGrid">Spécialité</label>
+                 <label for="floatingSelectGrid">Speciality</label>
                </div>
                <br>
 
@@ -78,14 +78,14 @@
                  <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="salle">
                    <option *ngFor="let salle of salle">{{salle}}</option>
                  </select>
-                 <label for="floatingSelectGrid">Salle</label>
+                 <label for="floatingSelectGrid">Hall</label>
                </div>
                <br>
 
              </div>
            </div>
         </div>
-         <button [disabled]="choiceFormSalle.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+         <button [disabled]="choiceFormSalle.invalid " id="submit" type="submit" class="btn ">To look at</button>
        </form>
     </div>
     <!--  -->
@@ -102,14 +102,14 @@
                  <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="filiere">
                    <option *ngFor="let filiere of filiere">{{filiere}}</option>
                  </select>
-                 <label for="floatingSelectGrid">Filière</label>
+                 <label for="floatingSelectGrid">Sector</label>
                </div>
                <br>
 
              </div>
            </div>
         </div>
-         <button [disabled]="choiceFormFiliere.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+         <button [disabled]="choiceFormFiliere.invalid " id="submit" type="submit" class="btn ">To look at</button>
        </form>
     </div>
     <!--  -->
@@ -125,14 +125,14 @@
                  <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="niveau">
                    <option *ngFor="let niveau of niveau">{{niveau}}</option>
                  </select>
-                 <label for="floatingSelectGrid">Niveau</label>
+                 <label for="floatingSelectGrid">Level</label>
                </div>
                <br>
 
              </div>
            </div>
         </div>
-         <button [disabled]="choiceFormNiveau.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+         <button [disabled]="choiceFormNiveau.invalid " id="submit" type="submit" class="btn ">To look at</button>
        </form>
     </div>
     <!--  -->
@@ -148,14 +148,14 @@
                  <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" formControlName="specialite">
                    <option *ngFor="let specialite of specialite">{{specialite}}</option>
                  </select>
-                 <label for="floatingSelectGrid">Specialité</label>
+                 <label for="floatingSelectGrid">Speciality</label>
                </div>
                <br>
 
              </div>
            </div>
         </div>
-         <button [disabled]="choiceFormSpecialite.invalid " id="submit" type="submit" class="btn ">Regarder</button>
+         <button [disabled]="choiceFormSpecialite.invalid " id="submit" type="submit" class="btn ">To look at</button>
        </form>
     </div>
     <!--  -->
@@ -186,8 +186,8 @@
 
   <div  class="sheduler">
     <div class="head">
-      <button (click)="back()"  class="btn "><i class="bi bi-arrow-left-square-fill"></i> Retour</button>
-      <button (click)="saveSheduler('#my-table')"  class="btn "><i class="bi bi-upload"></i> Exporter</button>
+      <button (click)="back()"  class="btn "><i class="bi bi-arrow-left-square-fill"></i> Back</button>
+      <button (click)="saveSheduler('#my-table')"  class="btn "><i class="bi bi-upload"></i> Export</button>
     </div>
    <div id="shedule" #shedule >
     <div class="head2">
@@ -197,14 +197,14 @@
     <table class=" table table-striped table-responsive table-sm table-bordered">
       <thead class="table-dark">
         <tr>
-          <th scope="col" class="centerCell">Horaire</th>
-          <th scope="col" class="centerCell">Lundi</th>
-          <th scope="col" class="centerCell">Mardi</th>
-          <th scope="col" class="centerCell">Mercredi</th>
+          <th scope="col" class="centerCell">Hourly</th>
+          <th scope="col" class="centerCell">Monday</th>
+          <th scope="col" class="centerCell">Tuesday</th>
+          <th scope="col" class="centerCell">Wednesday</th>
           <th scope="col" class="centerCell">Jeudi</th>
-          <th scope="col" class="centerCell">Vendredi</th>
-          <th scope="col" class="centerCell">Samedi</th>
-          <th scope="col" class="centerCell">Dimanche</th>
+          <th scope="col" class="centerCell">Friday</th>
+          <th scope="col" class="centerCell">Saturday</th>
+          <th scope="col" class="centerCell">Sunday</th>
         </tr>
       </thead>
       <tbody>

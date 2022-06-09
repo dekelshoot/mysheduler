@@ -45,7 +45,7 @@ shedulersDefaultSubscription! : Subscription;
     this.faculte = this.arraysService.faculte;
     this.filiere = this.arraysService.filiere;
     this.niveau = this.arraysService.niveau;
-    this.specialite = this.arraysService.specialiteInfo;
+    // this.specialite = this.arraysService.specialiteInfo;
     this.groupe = this.arraysService.groupe;
     this.salle = this.arraysService.salle;
     this.initForm();
@@ -88,7 +88,7 @@ onSubmit(){
     "groupeset":"none"
   }
   if(specialite){
-    data.specialite=this.arraysService.specialiteToCode(specialite)
+    data.specialite=this.arraysService.specialiteToCode(filiere,specialite)
     data.groupe=data.niveau+data.specialite
     data.groupeset=this.arraysService.chargeGroupeSet(data.filiere,data.niveau)
     console.log(data)
@@ -175,7 +175,7 @@ onSubmit5(){
   this.display=2
   const specialite = this.choiceFormSpecialite.get('specialite')?.value;
   const data = {
-    "specialite":this.arraysService.specialiteToCode(specialite),
+    // "specialite":this.arraysService.specialiteToCode(specialite),
   }
  this.shedulerService.shedulerSpecilate(data).then(
    (data:any)=>{
@@ -192,6 +192,18 @@ onSubmit5(){
 changeChoice(id:number){
   this.choice=id;
 }
+
+onChangeNiveau(filiere:string,niveau:string){
+  if(niveau=="L3"|| niveau=="M1"){
+    if(filiere=="Informatique"){
+      this.specialite = this.arraysService.specialiteInfo;
+    }
+    if(filiere=="Mathématique"){
+      this.specialite = this.arraysService.specialiteMath;
+    }
+  }
+}
+
 
 
   back(){
